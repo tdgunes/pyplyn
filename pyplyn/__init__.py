@@ -6,7 +6,7 @@ pyplyn, only one-way pipeline
 
 """
 __title__ = 'pyplyn'
-__version__ = '0.1.4'
+__version__ = '0.1.5'
 __author__ = 'Taha Dogan Gunes'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2014 Taha Dogan Gunes'
