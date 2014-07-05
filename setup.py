@@ -12,6 +12,7 @@ setup(
     include_package_data=True,
     author_email='tdgunes@gmail.com',
     url='https://github.com/tdgunes/pyplyn',
+    description='Only one-way pipeline (pyplyn) for data handling in Python',
     packages=['pyplyn',],
     license='MIT',
     long_description=open('README.rst').read(),
