@@ -29,13 +29,13 @@ Installation
 
 In order to install pyplyn, just simply:
 
-.. code-block:: pycon
+.. code-block:: bash
 
     pip install pyplyn
 
 Or alternatively, download the package from pypi_, extract and execute:
 
-.. code-block:: pycon
+.. code-block:: bash
 
     python setup.py install
 
@@ -46,7 +46,7 @@ Quick Start
 
 Pyplyn aims to make data handling in a flow based fashion:
 
-.. code-block:: pycon
+.. code-block:: python
 
     import pyplyn as p
 
@@ -58,7 +58,7 @@ Pyplyn aims to make data handling in a flow based fashion:
 
 You can even write your own Pyp modules as simple as this:
 
-.. code-block:: pycon
+.. code-block:: python
 
     import pyplyn as p
     import pymongo
@@ -72,7 +72,7 @@ You can even write your own Pyp modules as simple as this:
 
 Add this new pipe element to your current flow by:
 
-.. code-block:: pycon
+.. code-block:: python
 
     pipe = p.Pipe()
     pipe.add(MongoCollection("data","raw"))
