@@ -9,6 +9,7 @@ setup(
     name="pyplyn",
     version=pyplyn.__version__,
     author='Taha Dogan Gunes',
+    include_package_data=True,
     author_email='tdgunes@gmail.com',
     url='https://github.com/tdgunes/pyplyn',
     packages=['pyplyn',],
