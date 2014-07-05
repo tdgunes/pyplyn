@@ -27,11 +27,15 @@ repetitive tasks.
 Installation
 ============
 
-In order to install pyplyn, just simply::
+In order to install pyplyn, just simply:
+
+.. code-block:: pycon
 
     pip install pyplyn
 
-Or alternatively, download the package from pypi_, extract and execute::
+Or alternatively, download the package from pypi_, extract and execute:
+
+.. code-block:: pycon
 
     python setup.py install
 
@@ -40,7 +44,9 @@ Or alternatively, download the package from pypi_, extract and execute::
 Quick Start
 ===========
 
-Pyplyn aims to make data handling in a flow based fashion::
+Pyplyn aims to make data handling in a flow based fashion:
+
+.. code-block:: pycon
 
     import pyplyn as p
 
@@ -50,7 +56,9 @@ Pyplyn aims to make data handling in a flow based fashion::
     pipe.add(p.LineWriter("small_hello.txt"))
     pipe.run()
 
-You can even write your own Pyp modules as simple as this::
+You can even write your own Pyp modules as simple as this:
+
+.. code-block:: pycon
 
     import pyplyn as p
     import pymongo
@@ -62,7 +70,9 @@ You can even write your own Pyp modules as simple as this::
             for document in self.collection:
                 yield document
 
-Add this new pipe element to your current flow by::
+Add this new pipe element to your current flow by:
+
+.. code-block:: pycon
 
     pipe = p.Pipe()
     pipe.add(MongoCollection("data","raw"))
