@@ -52,3 +52,21 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+
+.idea/workspace.xml
+
+.idea/vcs.xml
+
+.idea/scopes/scope_settings.xml
+
+.idea/pyplyn.iml
+
+.idea/modules.xml
+
+.idea/misc.xml
+
+.idea/encodings.xml
+
+.idea/dictionaries/tdgunes.xml
+
+.idea/.name
