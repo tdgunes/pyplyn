@@ -12,58 +12,32 @@ License: MIT, see LICENSE for more details.
 from . import elements
 
 
-class LambdaExtension(elements.ExtendPypElement):
+class Lambda(elements.PypElement):
     """
     Gets a function and applies the function to data that
     it receives
     """
 
     def __init__(self, func):
-        self.func = func
-
-    def extend(self, data):
-        return self.func(data)
+        super(Lambda, self).__init__(func=func)
 
 
-class LambdaFilter(elements.FilterPypElement):
-    """
-    Gets a function and decides whether data can stay or not
-    based on that function
-    """
-
-    def __init__(self, func):
-        self.func = func
-
-    def stay(self, data):
-        return self.func(data)
+    def output(self):
+        func = self.inputs["func"]
+        yield {"data": func(self.inputs["data"])}
 
 
-class UniqueFilter(elements.FilterPypElement):
+class UniqueFilter(elements.PypElement):
     """
     Saves the data arrived, and stops the same data if
     received
     """
-
     def __init__(self):
+        super(UniqueFilter, self).__init__()
         self.arrived = set()
 
-    def stay(self, data):
-        if not data in self.arrived:
-            self.arrived.add(data)
-            return True
-        return False
-
-
-class Negation(elements.FilterPypElement):
-    """
-    Reverses the effect of any filter
-    NegationFilter(NegationFilter(UniqueFilter())) is same as
-    just UniqueFilter()
-    """
-
-    def __init__(self, filter_element):
-        self.filter_element = filter_element
-
-    def stay(self, data):
-        return not self.filter_element.stay(data)
-
+    def output(self):
+        self.arrived.add(self.inputs["data"])
+        if not self.inputs["data"] in self.arrived:
+            self.arrived.add(self.inputs["data"])
+            yield {"data":self.inputs["data"]}

@@ -12,72 +12,50 @@ License: MIT, see LICENSE for more details.
 import abc
 
 
+class Pipe(object):
+    __metaclass__ = abc.ABCMeta
+
+    def __init__(self, elements=[]):
+        self.elements = elements
+
+    def add(self, element):
+        self.elements.append(element)
+
+    def run(self):
+        for output in self.elements[0].output():
+            print output
+            self.elements[1].inputs = dict(self.elements[1].inputs.items() + output.items())
+            for prev, item, nex in self.neighborhood(self.elements[1:]):
+                gen = item.output()
+                if nex:
+                    next_element = next(gen)
+                    nex.inputs = dict(nex.inputs.items() + next_element.items())
+
+    @staticmethod
+    def neighborhood(iterable):
+        iterator = iter(iterable)
+        prev = None
+        item = iterator.next()  # throws StopIteration if empty.
+        for nex in iterator:
+            yield (prev, item, nex)
+            prev = item
+            item = nex
+        yield (prev, item, None)
+
+
 class PypElement(object):
     __metaclass__ = abc.ABCMeta
 
-
-class MidPypElement(PypElement):
-    __metaclass__ = abc.ABCMeta
-
-
-class InPypElement(PypElement):
-    __metaclass__ = abc.ABCMeta
+    def __init__(self, **kwargs):
+        self.inputs = kwargs
+        #print self.inputs
 
     @abc.abstractmethod
-    def grasp(self):
+    def output(self):
         """
-        Every input pipe need to implement this must have a yield
-        in it
+        Yield here
         :return:
         """
 
 
-class OutPypElement(PypElement):
-    __metaclass__ = abc.ABCMeta
 
-    @abc.abstractmethod
-    def extract(self, data):
-        """
-        Every output pipe need to implement this, like outputting
-        to file or db
-
-        :param data:
-        :return:
-        """
-
-    @abc.abstractmethod
-    def close(self):
-        """
-        Close the pyp, like a_file.close() or stop db connection
-
-        :return:
-        """
-
-
-class FilterPypElement(MidPypElement):
-    __metaclass__ = abc.ABCMeta
-
-    @abc.abstractmethod
-    def stay(self, data):
-        """
-        Every filter pipe needs to implement this
-        return true to have the data
-        return false to decline it
-
-        :param data:
-        :return:
-        """
-
-
-class ExtendPypElement(MidPypElement):
-    __metaclass__ = abc.ABCMeta
-
-    @abc.abstractmethod
-    def extend(self, data):
-        """
-        Every filter pipe needs to implement this
-        return true or false
-
-        :param data:
-        :return:
-        """

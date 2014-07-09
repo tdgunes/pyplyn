@@ -12,51 +12,59 @@ License: MIT, see LICENSE for more details.
 
 from . import elements
 
-class Writer(elements.OutPypElement):
+
+class Writer(elements.PypElement):
     """
     Writes the data to a text file
     """
 
     def __init__(self, path):
-        self.output_file = open(path, 'w')
-
-    def extract(self, data):
-        self.output_file.write(data)
-
-    def close(self):
-        self.output_file.close()
+        super(Writer, self).__init__(path=path)
+        self.f = open(self.inputs["path"], "w")
+    def output(self):
+        self.f.write(self.inputs["data"])
 
 
-class LineWriter(Writer):
+class LineWriter(elements.PypElement):
     """
     Writes the data per line
     """
 
-    def extract(self, data):
-        super(LineWriter, self).extract(data + "\n")
+    def __init__(self, path):
+        super(LineWriter, self).__init__(path=path)
 
-class Printer(elements.OutPypElement):
+    def output(self):
+        with open(self.inputs["path"], "w") as f:
+            f.write(self.inputs["data"] + "\n")
+            yield None
+
+
+class Printer(elements.PypElement):
     """
     Simple data printer
     """
-    def close(self):
-        pass
 
-    def extract(self, data):
-        print data
+    def __init__(self):
+        super(Printer, self).__init__()
+
+    def output(self):
+        print self.inputs["data"]
+        yield self.inputs["data"]
 
 
-class Gatherer(elements.OutPypElement):
+class Gatherer(elements.PypElement):
     """
     Outputs are gathered in to the pool inside this gatherer class
     after pipe is totally flowed, you can access the data by accesing to
     self.pool list
     """
+
     def __init__(self):
+        super(Gatherer, self).__init__()
         self.pool = []
 
-    def extract(self, data):
-        self.pool.append(data)
+    def output(self):
+        self.pool.append(self.inputs["data"])
+        yield self.pool
 
-    def close(self):
-        pass
+

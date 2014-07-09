@@ -12,28 +12,29 @@ License: MIT, see LICENSE for more details.
 from . import elements
 
 
-class LineReader(elements.InPypElement):
+class LineReader(elements.PypElement):
     """
     Gives lines to our pipe
     """
 
-    def __init__(self, path):
-        self.path = path
+    def __init__(self, path=""):
+        super(LineReader, self).__init__(path=path)
 
-    def grasp(self):
-        with open(self.path, "r") as input_file:
+    def output(self):
+        with open(self.inputs["path"], "r") as input_file:
             for line in input_file:
-                yield line
+                yield {"data": line}
 
 
-class ListGiver(elements.InPypElement):
+class ListGiver(elements.PypElement):
     """
     Gives list elements to our pipe
     """
 
-    def __init__(self, items):
-        self.items = items
+    def __init__(self, items=[]):
+        super(ListGiver, self).__init__(items=items)
 
-    def grasp(self):
-        for item in self.items:
-            yield item
+    def output(self):
+        for item in self.inputs["items"]:
+            yield {"data": item}
+
