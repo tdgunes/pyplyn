@@ -13,7 +13,7 @@ __copyright__ = 'Copyright 2014 Taha Dogan Gunes'
 
 # Set default logging handler to avoid "No handler found" warnings.
 
-from .elements import ExtendPypElement, MidPypElement, OutPypElement, InPypElement, FilterPypElement, PypElement
+from .elements import DataPypElement, MidPypElement, OutPypElement, InPypElement, FilterPypElement, PypElement
 from .inputs import LineReader, ListGiver
 from .middles import LambdaExtension, LambdaFilter, Negation, UniqueFilter
 from .outputs import LineWriter, Writer, Printer

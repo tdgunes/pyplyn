@@ -59,7 +59,7 @@ class Pipe(object):
             write = True
 
             for element in other_pipes:
-                if isinstance(element, elements.ExtendPypElement):
+                if isinstance(element, elements.DataPypElement):
                     data = element.extend(data)
                 elif isinstance(element, elements.FilterPypElement):
                     if not element.stay(data):

@@ -12,7 +12,7 @@ License: MIT, see LICENSE for more details.
 from . import elements
 
 
-class LambdaExtension(elements.ExtendPypElement):
+class LambdaExtension(elements.DataPypElement):
     """
     Gets a function and applies the function to data that
     it receives

@@ -69,7 +69,7 @@ class FilterPypElement(MidPypElement):
         """
 
 
-class ExtendPypElement(MidPypElement):
+class DataPypElement(MidPypElement):
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
