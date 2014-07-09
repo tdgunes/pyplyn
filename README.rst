@@ -79,7 +79,16 @@ Add this new pipe element to your current flow by:
     pipe.add(p.LambdaExtension(lambda document: document["text"])
     pipe.add(p.LineWriter("data_text.txt"))
 
-..
+Has a simple API:
+
+.. image:: http://tdgunes.org/pyplyn.png
+   :width: 900px
+   :height: 198px
+
+Why is it so called 'one-way'?
+==============================
+Simplicity is the ultimate aim, however there is a experimental branch multi-pyplyn in the project currently, I am just
+experimenting to find an elegant and easy to use API for the library.
 
 Documentation
 =============

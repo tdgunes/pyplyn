@@ -360,46 +360,52 @@ repetitive tasks.</p>
 <div class="section" id="installation">
 <h1>Installation</h1>
 <p>In order to install pyplyn, just simply:</p>
-<pre class="literal-block">
+<pre class="code bash literal-block">
 pip install pyplyn
 </pre>
 <p>Or alternatively, download the package from <a class="reference external" href="http://pypi.python.org/pypi/pyplyn">pypi</a>, extract and execute:</p>
-<pre class="literal-block">
+<pre class="code bash literal-block">
 python setup.py install
 </pre>
 </div>
 <div class="section" id="quick-start">
 <h1>Quick Start</h1>
 <p>Pyplyn aims to make data handling in a flow based fashion:</p>
-<pre class="literal-block">
-import pyplyn as p
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyplyn</span> <span class="keyword namespace">as</span> <span class="name namespace">p</span>
 
-pipe = p.Pipe()
-pipe.add(p.LineReader(&quot;hello.txt&quot;))
-pipe.add(p.LambdaFilter(lambda line: len(line) &lt; 50))
-pipe.add(p.LineWriter(&quot;small_hello.txt&quot;))
-pipe.run()
+<span class="name">pipe</span> <span class="operator">=</span> <span class="name">p</span><span class="operator">.</span><span class="name">Pipe</span><span class="punctuation">()</span>
+<span class="name">pipe</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">p</span><span class="operator">.</span><span class="name">LineReader</span><span class="punctuation">(</span><span class="literal string">&quot;hello.txt&quot;</span><span class="punctuation">))</span>
+<span class="name">pipe</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">p</span><span class="operator">.</span><span class="name">LambdaFilter</span><span class="punctuation">(</span><span class="keyword">lambda</span> <span class="name">line</span><span class="punctuation">:</span> <span class="name builtin">len</span><span class="punctuation">(</span><span class="name">line</span><span class="punctuation">)</span> <span class="operator">&lt;</span> <span class="literal number integer">50</span><span class="punctuation">))</span>
+<span class="name">pipe</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">p</span><span class="operator">.</span><span class="name">LineWriter</span><span class="punctuation">(</span><span class="literal string">&quot;small_hello.txt&quot;</span><span class="punctuation">))</span>
+<span class="name">pipe</span><span class="operator">.</span><span class="name">run</span><span class="punctuation">()</span>
 </pre>
 <p>You can even write your own Pyp modules as simple as this:</p>
-<pre class="literal-block">
-import pyplyn as p
-import pymongo
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">pyplyn</span> <span class="keyword namespace">as</span> <span class="name namespace">p</span>
+<span class="keyword namespace">import</span> <span class="name namespace">pymongo</span>
 
-class MongoCollection(p.InPypElement):
-    def __init__(self, db, collection):
-        self.collection = pymongo.MongoClient()[db][collection]
-    def grasp(self):
-        for document in self.collection:
-            yield document
+<span class="keyword">class</span> <span class="name class">MongoCollection</span><span class="punctuation">(</span><span class="name">p</span><span class="operator">.</span><span class="name">InPypElement</span><span class="punctuation">):</span>
+    <span class="keyword">def</span> <span class="name function">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">db</span><span class="punctuation">,</span> <span class="name">collection</span><span class="punctuation">):</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">collection</span> <span class="operator">=</span> <span class="name">pymongo</span><span class="operator">.</span><span class="name">MongoClient</span><span class="punctuation">()[</span><span class="name">db</span><span class="punctuation">][</span><span class="name">collection</span><span class="punctuation">]</span>
+    <span class="keyword">def</span> <span class="name function">grasp</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">):</span>
+        <span class="keyword">for</span> <span class="name">document</span> <span class="operator word">in</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">collection</span><span class="punctuation">:</span>
+            <span class="keyword">yield</span> <span class="name">document</span>
 </pre>
 <p>Add this new pipe element to your current flow by:</p>
-<pre class="literal-block">
-pipe = p.Pipe()
-pipe.add(MongoCollection(&quot;data&quot;,&quot;raw&quot;))
-pipe.add(p.LambdaExtension(lambda document: document[&quot;text&quot;])
-pipe.add(p.LineWriter(&quot;data_text.txt&quot;))
+<pre class="code python literal-block">
+<span class="name">pipe</span> <span class="operator">=</span> <span class="name">p</span><span class="operator">.</span><span class="name">Pipe</span><span class="punctuation">()</span>
+<span class="name">pipe</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">MongoCollection</span><span class="punctuation">(</span><span class="literal string">&quot;data&quot;</span><span class="punctuation">,</span><span class="literal string">&quot;raw&quot;</span><span class="punctuation">))</span>
+<span class="name">pipe</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">p</span><span class="operator">.</span><span class="name">LambdaExtension</span><span class="punctuation">(</span><span class="keyword">lambda</span> <span class="name">document</span><span class="punctuation">:</span> <span class="name">document</span><span class="punctuation">[</span><span class="literal string">&quot;text&quot;</span><span class="punctuation">])</span>
+<span class="name">pipe</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">p</span><span class="operator">.</span><span class="name">LineWriter</span><span class="punctuation">(</span><span class="literal string">&quot;data_text.txt&quot;</span><span class="punctuation">))</span>
 </pre>
-<!--  -->
+<p>Has a simple API:</p>
+<img alt="http://tdgunes.org/pyplyn.png" src="http://tdgunes.org/pyplyn.png" style="width: 900px; height: 198px;" />
+</div>
+<div class="section" id="why-is-it-so-called-one-way">
+<h1>Why is it so called 'one-way'?</h1>
+<p>Simplicity is the ultimate aim, however there is a experimental branch multi-pyplyn in the project currently, I am just
+experimenting to find an elegant and easy to use API for the library.</p>
 </div>
 <div class="section" id="documentation">
 <h1>Documentation</h1>
