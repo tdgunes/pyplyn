@@ -3,7 +3,7 @@
 pyplyn.inputs
 ~~~~~~~~~~
 
-Some useful output classes
+Some useful input classes
 
 Author: Taha Dogan Gunes
 License: MIT, see LICENSE for more details.
