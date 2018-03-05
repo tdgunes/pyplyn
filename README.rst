@@ -5,10 +5,10 @@ pyplyn: One-way only pipeline for data handling
     :target: http://badge.fury.io/py/pyplyn
 
 
-.. image:: https://pypip.in/d/pyplyn/badge.png
+.. image:: https://img.shields.io/pypi/dm/pyplyn.svg
     :target: https://crate.io/packages/pyplyn/
 
-.. image:: https://pypip.in/license/pyplyn/badge.png
+.. image:: https://img.shields.io/pypi/l/pyplyn.svg
     :target: https://github.com/tdgunes/pyplyn/blob/master/LICENSE
 
 Pyplyn is an MIT Licensed simple flow-based data handling structure for making
